@@ -52,5 +52,12 @@
 		{
 			"status":"0"
 		}
+	],
+	"user":[
+		{
+			"id":"us01",
+			"username":"user",
+			"password":"Vbpo@123"
+		}
 	]
 }
