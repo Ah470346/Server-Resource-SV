@@ -1,63 +1,60 @@
 {
-	"List_SV":
-	[
-		{
-			"name": "192.168.1.119",
-			"Device":"0",
-			"GB": "10",
-			"Path":"D:/Dri",
-			"U_GB":"0",
-			"Status": "0"
-		},
-		{
-			"name": "192.168.1.124",
-			"Device":"0",
-			"GB": "10",
-			"Path":"D:/Dri",
-			"U_GB":"0",
-			"Status": "0"
-		}
-	],
-	"Model_run":
-	[
-		{
-			"name": "TGK_X1",
-			"GB_Model":"1",
-			"IP_SV":"",
-			"Server_Run":"192.168.1.119",
-			"Main_SV":"192.168.1.7",
-			"Backup_SV":"192.168.1.14",
-			"Status:":"0",
-			"number_run":"",
-			"time_run": "",
-			"time_start":"",
-			"time_stop":""
-		},
-		{
-			"name": "TGK_X2",
-			"GB_Model":"2",
-			"IP_SV":"",
-			"Server_Run":"192.168.1.119",
-			"Main_SV":"192.168.1.7",
-			"Backup_SV":"192.168.1.14",
-			"Status:":"0",
-			"number_run":"",
-			"time_run": "",
-			"time_start":"",
-			"time_stop":""
-		}
-	],
-	"Status":
-	[
-		{
-			"status":"0"
-		}
-	],
-	"user":[
-		{
-			"id":"us01",
-			"username":"user",
-			"password":"Vbpo@123"
-		}
-	]
+  "List_SV": [
+    {
+      "name": "192.168.1.119",
+      "Device": "0",
+      "GB": "10",
+      "Path": "D:/Dri",
+      "U_GB": "0",
+      "Status": "0"
+    },
+    {
+      "name": "192.168.1.124",
+      "Device": "1",
+      "GB": "30",
+      "Path": "D:/Dri",
+      "U_GB": "0",
+      "Status": "0"
+    }
+  ],
+  "Model_run": [
+    {
+      "name": "TGK_X1",
+      "GB_Model": "1",
+      "Device": "0",
+      "IP_SV": "",
+      "Server_Run": "192.168.1.119",
+      "Main_SV": "192.168.1.7",
+      "Backup_SV": "192.168.1.14",
+      "Status:": "0",
+      "number_run": "2",
+      "time_run": "2021-08-17 17:26:54.048423",
+      "time_start": "",
+      "time_stop": ""
+    },
+    {
+      "name": "TGK_X2",
+      "GB_Model": "2",
+      "Device": "0",
+      "IP_SV": "",
+      "Server_Run": "192.168.1.119",
+      "Main_SV": "192.168.1.7",
+      "Backup_SV": "192.168.1.14",
+      "Status:": "0",
+      "number_run": "3",
+      "time_run": "2021-08-17 17:26:54.048423",
+      "time_start": "",
+      "time_stop": ""
+    }
+  ],
+  "Status": {
+    "status": 0
+  },
+  "user": [
+    {
+      "id": "us01",
+      "username": "user",
+      "password": "Vbpo@123"
+    }
+  ]
 }

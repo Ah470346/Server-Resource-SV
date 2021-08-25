@@ -1,9 +1,29 @@
-const db = require('../db');
+const Server = require("../models/listServer.model");
 
 module.exports.get = (req,res,next)=>{
-    res.json(db.get("List_SV").value());
+    Server.find().then((servers)=>{
+        res.json(servers);
+    })
 }
 
 module.exports.post = (req,res,next)=>{
-    res.json(db.get("List_SV").value());
+    Server.create(req.body,(server)=>{
+        res.send("Create server success");
+    });
+}
+
+module.exports.put = (req,res,next)=>{
+    Server.findOneAndUpdate({name:req.params.name},{...req.body}).then((result)=>{
+        res.send("Edit is success");
+    }).catch((error)=>{
+        res.send(error);
+    })
+}
+
+module.exports.delete = (req,res,next)=>{
+    Server.findOneAndRemove({name:req.params.name}).then(()=>{
+        res.send(`Delete server ${req.params.name} is success`);
+    }).catch((error)=>{
+        res.send(error);
+    })
 }
