@@ -11,7 +11,7 @@ const { Schema } = mongoose;
         Backup_SV: String,
         Status: Number,
         number_run: Number,
-        time_run: Date,
+        time_run: String,
         time_start: String,
         time_stop: String
     });

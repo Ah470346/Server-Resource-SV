@@ -24,27 +24,32 @@ app.use("/api/model",modelRouter);
 
 //---------------------socket.io
 
-// const httpServer = require("http").createServer(app);
-// const options = { cors: {
-//     origin: "http://localhost:3000",
-//     credentials: true
-//   } };
+const httpServer = require("http").createServer(app);
+const Model = require('./models/modelRun.model');
+const options = { cors: {
+    origin: "http://localhost:3000",
+    credentials: true
+} };
+const io = require('socket.io')(httpServer,options);
+  
+  app.get('/', (req, res) => {
+    res.send({ response: "a user is connected" }).status(200);
+  })
 
-// const readStream = fs.createReadStream("./config.json");
-// const io = require("socket.io")(httpServer, options);
+  io.on('connection', (socket) =>{
+    console.log("connection");
+    setInterval(() => {
+        Model.find().then((model)=>{
+            socket.emit("model",model);
+        })
+    }, 5000);
+    socket.on("disconnect",()=>{
+        console.log("disconnected !");
+    })
+  })
 
+const server = httpServer.listen(port, () => {
+console.log('server is running on port', port);
+});
 
-// io.on("connection", socket => {
-//     let pipeStream = function(data) {
-//         setInterval(()=>{
-//             socket.emit('data',JSON.parse(re));
-//         },3000)
-//     };
-//     readStream.on('open',pipeStream);
-//     socket.on('disconnect', function() {
-//         readStream.removeListener('data', pipeStream);
-//     });
-// });
-
-
-app.listen(port, () => console.log(`Listening on port ${port}`));
+// app.listen(port, () => console.log(`Listening on port ${port}`));
