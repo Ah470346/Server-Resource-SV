@@ -27,3 +27,11 @@ module.exports.delete = (req,res,next)=>{
         res.send(error);
     })
 }
+
+module.exports.updateUsage = (req,res,next)=>{
+    Server.updateOne({name:req.params.name},{U_GB: req.body.usage}).then(()=>{
+        res.send(`Update usage of server ${req.params.name} is success`);
+    }).catch((error)=>{
+        res.send(error);
+    })
+}
