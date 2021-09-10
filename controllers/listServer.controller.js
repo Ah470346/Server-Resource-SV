@@ -1,4 +1,5 @@
 const Server = require("../models/listServer.model");
+const Model = require('../models/modelRun.model');
 
 module.exports.get = (req,res,next)=>{
     Server.find().then((servers)=>{
@@ -13,6 +14,7 @@ module.exports.post = (req,res,next)=>{
 }
 
 module.exports.put = (req,res,next)=>{
+    console.log("hello");
     Server.findOneAndUpdate({name:req.params.name},{...req.body}).then((result)=>{
         res.send("Edit is success");
     }).catch((error)=>{
@@ -22,10 +24,13 @@ module.exports.put = (req,res,next)=>{
 
 module.exports.delete = (req,res,next)=>{
     Server.findOneAndRemove({name:req.params.name}).then(()=>{
-        res.send(`Delete server ${req.params.name} is success`);
+        Model.deleteMany({Server_Run: req.params.name}).then(()=>{
+            res.send(`Delete server ${req.params.name} is success`);
+        })
     }).catch((error)=>{
         res.send(error);
     })
+
 }
 
 module.exports.updateUsage = (req,res,next)=>{
