@@ -1,8 +1,9 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const fs = require("fs");
+const ping = require('ping');
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/ResourceServer', {useNewUrlParser: true, useUnifiedTopology: true,useFindAndModify:false});
+mongoose.connect('mongodb://192.168.1.134:27017/ResourceServer', {useNewUrlParser: true, useUnifiedTopology: true,useFindAndModify:false});
 
 
 const app = express();
@@ -26,6 +27,33 @@ app.use("/api/model",modelRouter);
 
 const httpServer = require("http").createServer(app);
 const Model = require('./models/modelRun.model');
+const Server = require('./models/listServer.model');
+
+var cfg = {
+  timeout:1,
+  // WARNING: -i 2 may not work in other platform like windows
+  extra: ['-i', '2'],
+};
+
+setInterval(() => {
+  Server.find({$or:[{Status: 0},{Status:2}]},"name Status Device").then((server)=>{
+    const hosts = server.map((i)=> {return {name:i.name,status:i.Status,device: i.Device}});
+    hosts.forEach(function(host){
+      ping.sys.probe(host.name, function(isAlive){
+          var msg = isAlive ? 'host ' + host.name + ' is alive' : 'host ' + host.name + ' is dead';
+          // console.log(msg);
+          if(isAlive === false && host.status === 0){
+            Server.findOneAndUpdate({name:host.name,Device: host.device},{Status:2}).then((asd)=>{});
+          } else if(isAlive === true && host.status === 2){
+            Server.findOneAndUpdate({name:host.name,Device: host.device},{Status:0}).then((asd)=>{});
+          }
+      },cfg);
+    });
+    // console.log("-------------------------------");
+  });
+}, 10000);
+
+
 const options = { cors: {
     origin: "http://localhost:3000",
     credentials: true
