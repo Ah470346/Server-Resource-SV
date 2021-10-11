@@ -73,6 +73,19 @@ const io = require('socket.io')(httpServer,options);
     }, 5000);
     socket.on("disconnect",()=>{
         console.log("disconnected !");
+    });
+    socket.on("updateNumber_Run",(name)=>{
+        Model.findOneAndUpdate({name: name},{number_run: 3}).then((result)=>{});
+    });
+    socket.on("convertModel",(model)=>{
+      const date = new Date();
+      const arr = date.toLocaleDateString().split("/");
+        Server.findOneAndUpdate({name:model.old.odlServer,Device: model.old.oldDevice},{U_GB: model.old.oldUsage - model.usage}).then((result)=>{});
+        Server.findOneAndUpdate({name:model.new.newServer,Device: model.new.newDevice},{U_GB: model.new.newUsage + model.usage}).then((result)=>{});
+        Model.findOneAndUpdate({name:model.name}
+          ,{Server_Run: model.new.newServer,Device: model.new.newDevice,number_run: 0, time_run:`${arr[2]}-${("0"+arr[0]).slice(-2)}-${("0"+arr[1]).slice(-2)} `
+          + `${("0"+date.getHours().toString()).slice(-2)}:${("0"+date.getMinutes().toString()).slice(-2)}`
+          + `:${("0"+date.getSeconds().toString()).slice(-2)}.${("0"+date.getMilliseconds().toString()).slice(-2)}`}).then(()=>{});
     })
   })
 
